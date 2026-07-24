@@ -1,8 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-import { ENV } from "@shared/config/env";
-
-const resend = new Resend(ENV.RESEND_API_KEY);
 
 type AttendanceType =
   | "engaged"
@@ -135,10 +132,21 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     );
   }
 
+  const apiKey = process.env.RESEND_API_KEY;
+  const foundationEmail = process.env.FOUNDATION_EMAIL ?? "foundation@lasehinde.org";
+
+  if (!apiKey) {
+    return NextResponse.json(
+      { success: false, error: "Email service not configured." },
+      { status: 500 }
+    );
+  }
+
   try {
+    const resend = new Resend(apiKey);
     await resend.emails.send({
       from: "The GOMAL Foundation <noreply@lasehinde.org>",
-      to: ENV.FOUNDATION_EMAIL,
+      to: foundationEmail,
       replyTo: data.email,
       subject: `Conference Registration — ${data.partnerOneName} & ${data.partnerTwoName}`,
       html: buildEmailHtml(data),
