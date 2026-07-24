@@ -11,10 +11,7 @@ function optionalEnv(key: string, fallback = ""): string {
 }
 
 export const ENV = {
-  RESEND_API_KEY: requireEnv("RESEND_API_KEY"),
-  FOUNDATION_EMAIL: optionalEnv(
-    "FOUNDATION_EMAIL",
-    "foundation@lasehinde.org"
-  ),
-  APP_URL: optionalEnv("NEXT_PUBLIC_APP_URL", "http://localhost:3000"),
-} as const;
+  get RESEND_API_KEY() { return requireEnv("RESEND_API_KEY"); },
+  get FOUNDATION_EMAIL() { return optionalEnv("FOUNDATION_EMAIL", "foundation@lasehinde.org"); },
+  get APP_URL() { return optionalEnv("NEXT_PUBLIC_APP_URL", "http://localhost:3000"); },
+};
