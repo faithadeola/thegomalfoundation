@@ -176,13 +176,13 @@ export function HeroPortraitSequence({
           >
             {togetherImageSrc && (
               <>
-                {/* Mobile: full bleed */}
-                <div className="absolute inset-0 md:hidden">
+                {/* Mobile: contain so both faces are always visible */}
+                <div className="absolute inset-0 md:hidden bg-ink-deep flex items-center justify-center">
                   <Image
                     src={togetherImageSrc}
                     alt="Revd. Gabriel & Mrs. Margaret Lasehinde — Baba and Mama GOMAL"
                     fill
-                    className="object-cover object-[45%_22%]"
+                    className="object-contain object-[50%_30%]"
                     sizes="100vw"
                     priority
                   />
