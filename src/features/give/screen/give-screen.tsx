@@ -1,15 +1,17 @@
 "use client";
 
-import Link from "next/link";
 import { GiveCard } from "./parts/give-card";
 import { BankCard } from "./parts/bank-card";
-import { ROUTES } from "@shared/constants/routes";
+import { SiteNav } from "@features/home/screen/parts/navigation/site-nav";
+import { SiteFooter } from "@features/home/screen/parts/footer/site-footer";
 
 export function GiveScreen() {
   return (
+    <>
+    <SiteNav />
     <main className="min-h-screen bg-ink-deep">
       {/* Mini-hero */}
-      <div className="bg-ink-deep py-14 px-6 md:px-10 border-b border-hair-green text-center">
+      <div className="bg-ink-deep pt-32 pb-14 px-6 md:px-10 border-b border-hair-green text-center">
         <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-sage mb-3">
           In loving memory · In living legacy
         </p>
@@ -32,7 +34,7 @@ export function GiveScreen() {
 
       {/* Give section */}
       <div className="bg-parchment py-16 px-6 md:px-10">
-        <div className="max-w-[1060px] mx-auto">
+        <div className="max-w-295 mx-auto">
           <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-ink-4 mb-3">
             Give
           </p>
@@ -45,7 +47,7 @@ export function GiveScreen() {
           >
             Support the work they started.
           </h2>
-          <p className="text-[1rem] text-ink-3 mb-12 max-w-[52ch] leading-[1.65] italic">
+          <p className="text-[1rem] text-ink-2 mb-12 max-w-[52ch] leading-[1.65]">
             Received in the spirit Baba and Mama gave — freely, and without
             asking twice.
           </p>
@@ -75,18 +77,8 @@ export function GiveScreen() {
         </div>
       </div>
 
-      {/* Back to full site */}
-      <div className="bg-parchment-warm border-t border-hair-strong py-8 px-6 text-center">
-        <p className="text-[0.875rem] text-ink-3 mb-3">
-          Want to know more about Baba and Mama GOMAL?
-        </p>
-        <Link
-          href={ROUTES.HOME}
-          className="text-[0.9375rem] font-semibold text-ink underline underline-offset-[3px] hover:text-ink-2 transition-colors duration-150"
-        >
-          Read their story →
-        </Link>
-      </div>
     </main>
+    <SiteFooter />
+    </>
   );
 }

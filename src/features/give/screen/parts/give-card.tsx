@@ -75,7 +75,7 @@ export function GiveCard() {
       </div>
 
       {/* Amount presets */}
-      <div className="grid grid-cols-4 gap-2 mb-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
         {PRESET_VALUES.map((val) => (
           <button
             key={val}
@@ -146,9 +146,12 @@ export function GiveCard() {
         >
           Partner with us — individuals &amp; organisations →
         </Link>
-        <a className="block text-[0.9375rem] text-ink-3 underline underline-offset-[3px] hover:text-ink transition-colors duration-150 cursor-pointer">
+        <button
+          type="button"
+          className="block text-left text-[0.9375rem] text-ink-3 underline underline-offset-[3px] hover:text-ink transition-colors duration-150"
+        >
           Volunteer or mentor a student →
-        </a>
+        </button>
       </div>
     </div>
   );

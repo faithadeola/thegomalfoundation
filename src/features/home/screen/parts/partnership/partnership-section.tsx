@@ -6,9 +6,9 @@ import { Reveal, RevealGroup } from "@ui/components/reveal/reveal";
 import { PARTNERSHIP_TYPE_LABELS } from "@features/partnership/types/partnership";
 import { PartnershipModal } from "@features/partnership/components/partnership-modal";
 
-const PARTNERSHIP_TYPES = Object.entries(PARTNERSHIP_TYPE_LABELS).map(
-  ([value, label]) => ({ value, label })
-);
+const PARTNERSHIP_TYPES = Object.entries(PARTNERSHIP_TYPE_LABELS)
+  .filter(([value]) => value !== "other")
+  .map(([value, label]) => ({ value, label }));
 
 export function PartnershipSection() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -20,7 +20,7 @@ export function PartnershipSection() {
         className="bg-parchment-warm border-t border-hair-strong py-28 md:py-32 px-6 md:px-10"
         aria-labelledby="partnership-heading"
       >
-        <div className="max-w-[1180px] mx-auto">
+        <div className="max-w-295 mx-auto">
           <RevealGroup>
             <div className="grid lg:grid-cols-[1fr_420px] gap-16 items-start">
               {/* Left: context */}
@@ -70,10 +70,10 @@ export function PartnershipSection() {
                     className="font-serif text-[1.25rem] font-medium text-ink mb-2 leading-[1.35]"
                     style={{ fontVariationSettings: "'SOFT' 40, 'WONK' 0" }}
                   >
-                    Tell us about your organisation
+                    Tell us how you'd like to help
                   </p>
                   <p className="text-[0.9375rem] text-ink-3 leading-[1.6] mb-8">
-                    Five minutes. We read every application and respond within two weeks.
+                    Five minutes. We read every message and respond within two weeks.
                   </p>
 
                   <button
@@ -84,7 +84,7 @@ export function PartnershipSection() {
                   </button>
 
                   <p className="text-center text-[0.8125rem] text-ink-4 mt-4">
-                    We respond to every application.
+                    We respond to every message.
                   </p>
                 </div>
               </Reveal>

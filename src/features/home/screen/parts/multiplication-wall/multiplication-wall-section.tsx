@@ -27,33 +27,9 @@ const SAMPLE_TRIBUTES = [
   },
   {
     id: "t4",
-    text: "Baba's chair at the front pew will never be filled by anyone else. We have tried not to replace it.",
-    name: "Rev. Seun Adeyemi",
-    relation: "Church, Ogbomoso",
-  },
-  {
-    id: "t5",
-    text: "Mama called to check on my daughter every term for four years. Not once did she ask for anything in return. I kept waiting for the ask. It never came.",
-    name: "Funmi Babatunde",
-    relation: "Parent, GOMAL 2018",
-  },
-  {
-    id: "t6",
     text: "Every Sunday, Baba shook my hand like it was the most important thing he had done all week. For me, it was.",
     name: "Tunde Afolabi",
     relation: "GOMAL, Class of 2003",
-  },
-  {
-    id: "t7",
-    text: "She told me I was going to be fine three weeks before my exams. I had failed twice before. She didn't qualify it. She just said it. I was.",
-    name: "Ngozi Okonkwo",
-    relation: "GOMAL, Class of 2015",
-  },
-  {
-    id: "t8",
-    text: "They prayed over us at our wedding. Twenty-two years later we remember what they said word for word. Some things you don't forget.",
-    name: "Mr & Mrs Adeleke",
-    relation: "Counselled, 2002",
   },
 ] as const;
 
@@ -93,11 +69,11 @@ function TributeCard({
 }>) {
   return (
     <motion.div
-      className="break-inside-avoid bg-green-raised border border-hair-green rounded p-6 mb-4"
-      initial={{ opacity: 0, y: 8 }}
+      className="bg-green-raised border border-hair-green rounded p-6"
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-20px" }}
-      transition={{ duration: 0.35, delay: index * 0.04, ease: "easeOut" }}
+      viewport={{ once: true, margin: "-30px" }}
+      transition={{ duration: 0.5, delay: index * 0.1, ease: [0.0, 0.0, 0.2, 1.0] }}
     >
       <p className="text-[0.9375rem] text-parchment-warm leading-[1.65] mb-4">
         &ldquo;{tribute.text}&rdquo;
@@ -108,29 +84,6 @@ function TributeCard({
         </p>
         <p className="text-[0.8125rem] text-sage">{tribute.relation}</p>
       </div>
-    </motion.div>
-  );
-}
-
-function AddYoursSlot() {
-  return (
-    <motion.div
-      className="break-inside-avoid border-[1.5px] border-dashed rounded p-6 mb-4 flex flex-col items-center justify-center text-center min-h-40 cursor-pointer hover:bg-green-raised transition-colors duration-150"
-      style={{ borderColor: "var(--hair-green-strong)" }}
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-20px" }}
-      transition={{ duration: 0.35, delay: SAMPLE_TRIBUTES.length * 0.04, ease: "easeOut" }}
-      whileHover={{ scale: 1.01 }}
-    >
-      <div className="w-10 h-10 rounded-full border border-sage-deep flex items-center justify-center mb-2.5">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-          <path d="M8 3v10M3 8h10" stroke="#6B8272" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
-      </div>
-      <p className="text-[0.875rem] text-sage leading-[1.5]">
-        Tell us what they did for you
-      </p>
     </motion.div>
   );
 }
@@ -184,12 +137,13 @@ export function MultiplicationWallSection() {
 
   return (
     <section
-      className="bg-green-canvas py-28 md:py-32 px-6 md:px-10"
+      id="wall"
+      className="bg-green-canvas py-24 md:py-28 px-6 md:px-10 overflow-hidden"
       aria-labelledby="wall-heading"
     >
-      <div className="max-w-[1180px] mx-auto">
+      <div className="max-w-295 mx-auto">
         {/* Counter area */}
-        <div ref={counterRef} className="text-center relative mb-16 md:mb-20">
+        <div ref={counterRef} className="text-center relative mb-12">
           <WallRipples />
 
           <motion.p
@@ -216,66 +170,62 @@ export function MultiplicationWallSection() {
           </motion.p>
 
           <motion.p
-            className="text-[0.9375rem] text-sage italic relative z-10 mb-8"
+            className="text-[0.9375rem] text-sage italic relative z-10"
             initial={{ opacity: 0, y: 6 }}
             animate={counterInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            Each one is someone Baba and Mama changed. Add yours.
+            Each one is someone Baba and Mama changed.
           </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 6 }}
-            animate={counterInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="relative z-10"
-          >
-            <Link
-              href={ROUTES.TRIBUTES}
-              className="inline-flex items-center px-6 py-3 rounded-full bg-brass text-ink-deep text-sm font-semibold hover:bg-brass-deep transition-colors duration-150"
-            >
-              Add your tribute
-            </Link>
-          </motion.div>
         </div>
 
-        {/* Baba & Mama photo */}
+        {/* Baba & Mama photo — panoramic strip */}
         <motion.div
-          className="relative rounded-lg overflow-hidden mb-14 h-64 md:h-80"
-          initial={{ opacity: 0, y: 12 }}
-          animate={counterInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          className="relative rounded-lg overflow-hidden mb-10"
+          style={{ height: "clamp(220px, 34vw, 420px)" }}
+          initial={{ opacity: 0, scale: 1.03 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.8, ease: [0.0, 0.0, 0.2, 1.0] }}
         >
           <Image
             src="/images/portraits/baba-mama-worship.jpg"
             alt="Revd. Gabriel and Mrs. Margaret Lasehinde — Baba and Mama GOMAL in worship"
             fill
-            className="object-cover object-top"
+            className="object-cover"
+            style={{ objectPosition: "50% 12%" }}
             sizes="(max-width: 768px) 100vw, 1180px"
           />
-          <div className="absolute inset-0 bg-linear-to-t from-green-canvas/80 via-green-canvas/10 to-transparent" />
-          <div className="absolute inset-0 bg-linear-to-b from-green-canvas/60 via-transparent to-transparent" />
-          <div className="absolute bottom-0 left-0 right-0 px-6 pb-5">
+          <div className="absolute inset-0 bg-linear-to-t from-green-canvas/70 via-green-canvas/10 to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-b from-green-canvas/40 via-transparent to-transparent" />
+          <motion.div
+            className="absolute bottom-0 left-0 right-0 px-6 pb-4"
+            initial={{ opacity: 0, y: 6 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             <p className="text-[0.75rem] font-medium text-parchment/60 tracking-[0.12em] uppercase">
               Baba &amp; Mama GOMAL
             </p>
-          </div>
+          </motion.div>
         </motion.div>
 
-        {/* Masonry tribute grid */}
-        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 mb-12">
+        {/* 4-card tribute grid */}
+        <div className="grid sm:grid-cols-2 gap-4 mb-8">
           {SAMPLE_TRIBUTES.map((tribute, i) => (
-            <TributeCard
-              key={tribute.id}
-              tribute={tribute}
-              index={i}
-            />
+            <TributeCard key={tribute.id} tribute={tribute} index={i} />
           ))}
-          <AddYoursSlot />
         </div>
 
         {/* CTAs */}
-        <div className="flex items-center justify-center gap-4 flex-wrap">
+        <motion.div
+          className="flex items-center justify-center gap-6 flex-wrap"
+          initial={{ opacity: 0, y: 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-20px" }}
+          transition={{ duration: 0.45, delay: 0.2, ease: "easeOut" }}
+        >
           <Link
             href={ROUTES.TRIBUTES}
             className="inline-flex items-center px-6 py-3 rounded-full bg-brass text-ink-deep text-sm font-semibold hover:bg-brass-deep transition-colors duration-150"
@@ -288,7 +238,7 @@ export function MultiplicationWallSection() {
           >
             Read all 1,247 tributes →
           </Link>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

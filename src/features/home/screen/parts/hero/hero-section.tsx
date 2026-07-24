@@ -1,7 +1,7 @@
 "use client";
 
+import { useState } from "react";
 import { HeroPortraitSequence } from "./hero-portrait-sequence";
-import { HeroRippleRings } from "./hero-ripple-rings";
 import { HeroContent } from "./hero-content";
 
 interface HeroSectionProps {
@@ -15,25 +15,27 @@ export function HeroSection({
   mamaImageSrc,
   togetherImageSrc,
 }: HeroSectionProps) {
+  const [activePhase, setActivePhase] = useState<"baba" | "mama" | "together">("baba");
+
   return (
     <section
-      className="relative min-h-screen bg-ink-deep overflow-hidden flex flex-col justify-end"
+      className="relative min-h-screen bg-ink-deep overflow-hidden"
       aria-label="In loving memory of Baba and Mama GOMAL"
     >
-      {/* Portrait area — upper 65% */}
-      <div className="absolute top-0 left-0 right-0 h-[65%]">
+      {/* Full-bleed portrait background */}
+      <div className="absolute inset-0">
         <HeroPortraitSequence
           babaImageSrc={babaImageSrc}
           mamaImageSrc={mamaImageSrc}
           togetherImageSrc={togetherImageSrc}
+          onPhaseChange={setActivePhase}
         />
       </div>
 
-      {/* Ripple rings behind portrait */}
-      <HeroRippleRings />
-
-      {/* Hero text content — sits at bottom, overlapping vignette */}
-      <HeroContent />
+      {/* Left-side content panel */}
+      <div className="relative z-10 min-h-screen flex flex-col justify-end md:justify-center pointer-events-none">
+        <HeroContent activePhase={activePhase} />
+      </div>
     </section>
   );
 }

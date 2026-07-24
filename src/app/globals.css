@@ -102,9 +102,15 @@
   --color-warn:             var(--warn);
   --color-crit:             var(--crit);
 
+  /* Hairlines */
+  --color-hair:             var(--hair);
+  --color-hair-strong:      var(--hair-strong);
+  --color-hair-green:       var(--hair-green);
+  --color-hair-green-strong: var(--hair-green-strong);
+
   /* Fonts */
-  --font-serif:             var(--font-serif);
-  --font-sans:              var(--font-sans);
+  --font-serif:             'Fraunces', Georgia, serif;
+  --font-sans:              'Instrument Sans', system-ui, sans-serif;
 
   /* Border radius */
   --radius-sm:              var(--radius-sm);

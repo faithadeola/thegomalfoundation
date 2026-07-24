@@ -271,9 +271,9 @@ export function TributesScreen() {
   return (
     <>
       <SiteNav />
-      <main className="min-h-screen bg-green-canvas pt-20">
+      <main className="min-h-screen bg-green-canvas">
         {/* Header */}
-        <div className="bg-ink-deep pt-16 pb-14 px-6 md:px-10 border-b border-hair-green">
+        <div className="bg-ink-deep pt-32 pb-14 px-6 md:px-10 border-b border-hair-green">
           <div className="max-w-295 mx-auto grid md:grid-cols-[1fr_340px] gap-12 items-center">
             {/* Text */}
             <div>
@@ -337,7 +337,8 @@ export function TributesScreen() {
                   key={tribute.id}
                   className="break-inside-avoid bg-green-raised border border-hair-green rounded p-6 mb-4 flex flex-col"
                   initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-20px" }}
                   transition={{
                     duration: 0.4,
                     delay: i * 0.04,

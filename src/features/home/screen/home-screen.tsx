@@ -2,6 +2,7 @@ import { SiteNav } from "./parts/navigation/site-nav";
 import { HeroSection } from "./parts/hero/hero-section";
 import { WhoTheyWereSection } from "./parts/who-they-were/who-they-were-section";
 import { FoundationSection } from "./parts/foundation/foundation-section";
+import { ProgrammesSection } from "./parts/programmes/programmes-section";
 import { MultiplicationWallSection } from "./parts/multiplication-wall/multiplication-wall-section";
 import { GiveSection } from "./parts/give/give-section";
 import { PartnershipSection } from "./parts/partnership/partnership-section";
@@ -26,6 +27,7 @@ export function HomeScreen() {
         />
         <WhoTheyWereSection />
         <FoundationSection />
+        <ProgrammesSection />
         <MultiplicationWallSection />
         <GiveSection />
         <PartnershipSection />

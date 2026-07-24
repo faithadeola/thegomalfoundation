@@ -33,7 +33,7 @@ export function Logo({
           className="font-serif text-brass text-sm font-semibold leading-none"
           style={{ fontVariationSettings: "'SOFT' 40, 'WONK' 0" }}
         >
-          LF
+          GF
         </span>
       </div>
 

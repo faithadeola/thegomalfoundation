@@ -65,7 +65,7 @@ function CopyButton({ text }: Readonly<{ text: string }>) {
 
 function BankCard() {
   return (
-    <div className="bg-parchment-sheet border border-hair-strong rounded p-7 sticky top-24">
+    <div className="bg-parchment-sheet border border-hair-strong rounded p-7 lg:sticky lg:top-24">
       <p className="font-semibold text-[0.9375rem] text-ink mb-5">
         Give by bank transfer
       </p>
@@ -134,111 +134,124 @@ function GiveCard() {
   }
 
   return (
-    <div className="bg-parchment-sheet border border-hair-strong rounded p-8">
-      <h3
-        className="font-serif text-[1.5rem] font-medium text-ink mb-1.5"
-        style={{ fontVariationSettings: "'SOFT' 40, 'WONK' 0" }}
-      >
-        Give a gift
-      </h3>
-      <p className="text-[0.9375rem] text-ink-3 mb-6 leading-[1.6]">
-        Any amount. Once, monthly, or yearly. Straight to the Foundation.
-      </p>
-
-      {/* Frequency toggle */}
-      <div className="inline-flex border border-sheet-edge rounded overflow-hidden bg-parchment-warm mb-5">
-        {(["once", "monthly", "yearly"] as Frequency[]).map((freq) => (
-          <button
-            key={freq}
-            onClick={() => setFrequency(freq)}
-            className={[
-              "px-4 py-2.5 text-[0.875rem] font-medium transition-all duration-150",
-              frequency === freq
-                ? "bg-ink text-parchment font-semibold"
-                : "text-ink-3 hover:text-ink",
-            ].join(" ")}
-          >
-            {FREQ_LABELS[freq]}
-          </button>
-        ))}
-      </div>
-
-      {/* Amount presets */}
-      <div className="grid grid-cols-4 gap-2 mb-3">
-        {PRESET_VALUES.map((val) => (
-          <button
-            key={val}
-            onClick={() => pickPreset(val)}
-            className={[
-              "py-3 px-2 text-[0.9375rem] font-medium text-center rounded border transition-all duration-150",
-              !showCustom && selected === val
-                ? "bg-ink border-ink text-parchment font-semibold"
-                : "bg-parchment-warm border-sheet-edge text-ink hover:bg-parchment-deep hover:border-ink-4",
-            ].join(" ")}
-          >
-            {formatNaira(val)}
-          </button>
-        ))}
-      </div>
-
-      {/* Custom amount */}
-      <AnimatePresence mode="wait">
-        {showCustom ? (
-          <motion.div
-            key="custom-input"
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.18 }}
-            className="mb-5"
-          >
-            <div className="flex items-center border border-brass rounded overflow-hidden bg-parchment-warm focus-within:shadow-[0_0_0_3px_rgba(181,139,60,0.16)]">
-              <span className="px-3.5 text-[1rem] font-semibold text-ink-3 select-none">₦</span>
-              <input
-                type="text"
-                inputMode="numeric"
-                autoFocus
-                placeholder="Enter amount"
-                value={custom}
-                onChange={handleCustomChange}
-                className="flex-1 py-3 pr-4 bg-transparent text-[1rem] font-semibold text-ink outline-none placeholder:text-ink-4"
-              />
-            </div>
-          </motion.div>
-        ) : (
-          <motion.button
-            key="other-btn"
-            initial={{ opacity: 0, y: -4 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -4 }}
-            transition={{ duration: 0.18 }}
-            onClick={() => setShowCustom(true)}
-            className="block w-full text-left text-[0.8125rem] text-ink-3 mb-5 underline underline-offset-2 hover:text-ink transition-colors duration-150"
-          >
-            Enter a different amount →
-          </motion.button>
-        )}
-      </AnimatePresence>
-
-      {/* Primary CTA */}
-      <button
-        disabled={effectiveAmount === 0}
-        className="w-full flex items-center justify-center px-7 py-4 rounded-full bg-brass text-ink-deep text-[1.0625rem] font-semibold hover:bg-brass-deep disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-150 mb-6"
-      >
-        {effectiveAmount > 0 ? `Give ${formatNaira(effectiveAmount)}` : "Give"}
-      </button>
-
-      {/* Tertiary links */}
-      <div className="mt-2 pt-4 border-t border-hair space-y-2.5">
-        <Link
-          href={ROUTES.PARTNERSHIP}
-          className="block text-[0.9375rem] text-ink-3 underline underline-offset-[3px] hover:text-ink transition-colors duration-150"
+    <div className="rounded-lg overflow-hidden border border-hair-strong">
+      {/* Warm header band */}
+      <div className="bg-parchment-deep px-8 pt-8 pb-6 border-b border-hair-strong">
+        <p className="text-[11px] font-semibold tracking-[0.18em] uppercase text-ink-4 mb-3">
+          Give a gift
+        </p>
+        <p
+          className="font-serif italic text-ink leading-[1.45]"
+          style={{
+            fontVariationSettings: "'SOFT' 40, 'WONK' 0",
+            fontSize: "clamp(1.125rem, 2vw, 1.375rem)",
+          }}
         >
-          Partner with us — individuals &amp; organisations →
-        </Link>
-        <a className="block text-[0.9375rem] text-ink-3 underline underline-offset-[3px] hover:text-ink transition-colors duration-150 cursor-pointer">
-          Volunteer or mentor a student →
-        </a>
+          &ldquo;Nobody who came for help ever left the way they arrived.&rdquo;
+        </p>
+        <p className="text-[0.8125rem] text-ink-4 mt-2">— Baba, as remembered by the family</p>
+      </div>
+
+      {/* Give controls */}
+      <div className="bg-parchment-sheet px-8 py-7">
+        {/* Frequency toggle */}
+        <div className="inline-flex border border-sheet-edge rounded overflow-hidden bg-parchment-warm mb-6 w-full sm:w-auto">
+          {(["once", "monthly", "yearly"] as Frequency[]).map((freq) => (
+            <button
+              key={freq}
+              onClick={() => setFrequency(freq)}
+              className={[
+                "flex-1 sm:flex-none px-4 py-2.5 text-[0.875rem] font-medium transition-all duration-150",
+                frequency === freq
+                  ? "bg-ink text-parchment font-semibold"
+                  : "text-ink-3 hover:text-ink",
+              ].join(" ")}
+            >
+              {FREQ_LABELS[freq]}
+            </button>
+          ))}
+        </div>
+
+        {/* Amount presets */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-3">
+          {PRESET_VALUES.map((val) => (
+            <button
+              key={val}
+              onClick={() => pickPreset(val)}
+              className={[
+                "py-3.5 px-2 text-[0.9375rem] font-semibold text-center rounded-lg border transition-all duration-150",
+                !showCustom && selected === val
+                  ? "bg-brass border-brass text-ink-deep shadow-sm"
+                  : "bg-parchment-warm border-sheet-edge text-ink hover:border-brass/40 hover:bg-brass-tint",
+              ].join(" ")}
+            >
+              {formatNaira(val)}
+            </button>
+          ))}
+        </div>
+
+        {/* Custom amount */}
+        <AnimatePresence mode="wait">
+          {showCustom ? (
+            <motion.div
+              key="custom-input"
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.18 }}
+              className="mb-5"
+            >
+              <div className="flex items-center border border-brass rounded-lg overflow-hidden bg-parchment-warm focus-within:shadow-[0_0_0_3px_rgba(181,139,60,0.16)]">
+                <span className="px-3.5 text-[1rem] font-semibold text-ink-3 select-none">₦</span>
+                <input
+                  type="text"
+                  inputMode="numeric"
+                  autoFocus
+                  placeholder="Enter amount"
+                  value={custom}
+                  onChange={handleCustomChange}
+                  className="flex-1 py-3 pr-4 bg-transparent text-[1rem] font-semibold text-ink outline-none placeholder:text-ink-4"
+                />
+              </div>
+            </motion.div>
+          ) : (
+            <motion.button
+              key="other-btn"
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.18 }}
+              onClick={() => setShowCustom(true)}
+              className="block w-full text-left text-[0.8125rem] text-ink-3 mb-5 underline underline-offset-2 hover:text-ink transition-colors duration-150"
+            >
+              Enter a different amount →
+            </motion.button>
+          )}
+        </AnimatePresence>
+
+        {/* Primary CTA */}
+        <button
+          disabled={effectiveAmount === 0}
+          className="w-full flex items-center justify-center px-7 py-4 rounded-full bg-brass text-ink-deep text-[1.0625rem] font-semibold hover:bg-brass-deep disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-150 shadow-sm mb-6"
+        >
+          {effectiveAmount > 0 ? `Give ${formatNaira(effectiveAmount)}` : "Give"}
+        </button>
+
+        {/* Tertiary links */}
+        <div className="pt-4 border-t border-hair space-y-2.5">
+          <Link
+            href={ROUTES.PARTNERSHIP}
+            className="block text-[0.875rem] text-ink-3 underline underline-offset-[3px] hover:text-ink transition-colors duration-150"
+          >
+            Partner with us — individuals &amp; organisations →
+          </Link>
+          <button
+            type="button"
+            className="block text-left text-[0.875rem] text-ink-3 underline underline-offset-[3px] hover:text-ink transition-colors duration-150"
+          >
+            Volunteer or mentor a student →
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -251,7 +264,7 @@ export function GiveSection() {
       className="bg-parchment py-28 md:py-32 px-6 md:px-10"
       aria-labelledby="give-heading"
     >
-      <div className="max-w-[1180px] mx-auto">
+      <div className="max-w-295 mx-auto">
         <RevealGroup>
           <Reveal>
             <div className="mb-6">
