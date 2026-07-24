@@ -4,7 +4,6 @@ import { ENV } from "@shared/config/env";
 import type { PartnershipFormData, PartnershipType } from "@features/partnership/types/partnership";
 import { PARTNERSHIP_TYPE_LABELS } from "@features/partnership/types/partnership";
 
-const resend = new Resend(ENV.RESEND_API_KEY);
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -127,6 +126,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   try {
+    const resend = new Resend(ENV.RESEND_API_KEY);
     await resend.emails.send({
       from: "The GOMAL Foundation <noreply@lasehinde.org>",
       to: ENV.FOUNDATION_EMAIL,
